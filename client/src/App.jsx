@@ -6,6 +6,7 @@ import {ethers} from "ethers"
 import './App.css'
 import storage from './artifacts/contracts/web3storage.sol/web3strorage.json'
 import { FileUpload } from './components/FileUpload'
+import Display from './components/Display'
 
 function App() {
    const [account, setAccount] = useState('')
@@ -19,6 +20,9 @@ function App() {
     const wallet = async()=>{
       if(provider){
         await provider.send("eth_requestAccounts",[])//to open metamask automatically 
+        window.ethereum.on('accountsChanged',()=>{
+          window.location.reload()
+        })
         const signer =await provider.getSigner() 
         const address = await signer.getAddress() // address of connected account
         
@@ -48,6 +52,7 @@ function App() {
         Account : {account ? account : "Not connected"}
       </p>
       <FileUpload contract={contract} account={account} />
+      <Display contract={contract} account={account}  />
    </div>
   )
 }
