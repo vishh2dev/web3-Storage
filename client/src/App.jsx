@@ -7,12 +7,13 @@ import './App.css'
 import storage from './artifacts/contracts/web3storage.sol/web3strorage.json'
 import { FileUpload } from './components/FileUpload'
 import Display from './components/Display'
+import Modal from './components/Modal'
 
 function App() {
    const [account, setAccount] = useState('')
   const [contract, setContract] = useState('')
    const [provider, setProvider] = useState('')
-  // const [modal, setModal] = useState(false)
+   const [modal, setModal] = useState(false)
 
   useEffect(()=>{
     const provider = new ethers.providers.Web3Provider(window.ethereum)
@@ -43,6 +44,15 @@ function App() {
    provider && wallet()
   },[])
   return (
+    <>
+    {!modal && (
+      <button className='share' onClick={()=>setModal(true)}>share</button>
+    )}
+    {
+      modal && (
+        <Modal setModalOpen={setModal} contract={contract} />
+      )
+    }
    <div className="App">
       <h1 style={{ color: "white" }}>Gdrive 3.0</h1>
       <div className="bg"></div>
@@ -54,6 +64,7 @@ function App() {
       <FileUpload contract={contract} account={account} />
       <Display contract={contract} account={account}  />
    </div>
+   </>
   )
 }
 
