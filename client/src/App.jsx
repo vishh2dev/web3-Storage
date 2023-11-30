@@ -8,6 +8,7 @@ import storage from './artifacts/contracts/web3storage.sol/web3strorage.json'
 import { FileUpload } from './components/FileUpload'
 import Display from './components/Display'
 import Modal from './components/Modal'
+import {Navbar} from './components/Navbar'
 
 function App() {
    const [account, setAccount] = useState('')
@@ -45,6 +46,7 @@ function App() {
   },[])
   return (
     <>
+    <Navbar/>
     {!modal && (
       <button className='share' onClick={()=>setModal(true)}>share</button>
     )}
