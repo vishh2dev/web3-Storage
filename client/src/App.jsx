@@ -16,34 +16,34 @@ function App() {
    const [provider, setProvider] = useState('')
    const [modal, setModal] = useState(false)
 
-  useEffect(()=>{
-    const provider = new ethers.providers.Web3Provider(window.ethereum)
+  // useEffect(()=>{
+  //   const provider = new ethers.providers.Web3Provider(window.ethereum)
 
-    const wallet = async()=>{
-      if(provider){
-        await provider.send("eth_requestAccounts",[])//to open metamask automatically 
-        window.ethereum.on('accountsChanged',()=>{
-          window.location.reload()
-        })
-        const signer =await provider.getSigner() 
-        const address = await signer.getAddress() // address of connected account
+  //   const wallet = async()=>{
+  //     if(provider){
+  //       await provider.send("eth_requestAccounts",[])//to open metamask automatically 
+  //       window.ethereum.on('accountsChanged',()=>{
+  //         window.location.reload()
+  //       })
+  //       const signer =await provider.getSigner() 
+  //       const address = await signer.getAddress() // address of connected account
         
-        setAccount(address)
-        const contractAddresss = '0x5FbDB2315678afecb367f032d93F642f64180aa3' // from upload.sol
-        const contract = new ethers.Contract(
-          contractAddresss,
-          storage.abi,//from the artifacts  
-          signer
-        )
+  //       setAccount(address)
+  //       const contractAddresss = '0x5FbDB2315678afecb367f032d93F642f64180aa3' // from upload.sol
+  //       const contract = new ethers.Contract(
+  //         contractAddresss,
+  //         storage.abi,//from the artifacts  
+  //         signer
+  //       )
        
-        setContract(contract)
-        setProvider(signer)
-      }else{
-        alert("metamask is not installed")
-      }
-    }
-   provider && wallet()
-  },[])
+  //       setContract(contract)
+  //       setProvider(signer)
+  //     }else{
+  //       alert("metamask is not installed")
+  //     }
+  //   }
+  //  provider && wallet()
+  // },[])
   return (
     <>
     <Navbar/>
